@@ -15,6 +15,8 @@ func game_over() -> void:
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$HUD.show_game_over()
+	$Music.stop()
+	$DeathSound.play()
 	
 func new_game() -> void:
 	# delete all old mobs from previous game
@@ -24,6 +26,7 @@ func new_game() -> void:
 	$StartTimer.start()
 	$HUD.update_score(score)
 	$HUD.show_message("Get Ready")
+	$Music.play()
 
 func _on_mob_timer_timeout() -> void:
 	# create a new instance of the Mob scene
