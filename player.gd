@@ -52,7 +52,7 @@ func _on_body_entered(body: Node2D) -> void:
 	# wait until it's safe to disable collision on the player
 	$CollisionShape2D.set_deferred("disabled", true)
 
-func start(pos):
+func start(pos) -> void:
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
