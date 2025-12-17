@@ -1,11 +1,14 @@
 extends Area2D
 
+signal hit
+
 @export var speed = 400
 var screen_size
 
 # called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	hide()
 
 # called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -41,3 +44,15 @@ func _process(delta: float) -> void:
 	position += velocity * delta
 	# prevent player from leaving screensd
 	position = position.clamp(Vector2.ZERO, screen_size)
+
+
+func _on_body_entered(body: Node2D) -> void:
+	hide() # player disappears after being hit
+	hit.emit()
+	# wait until it's safe to disable collision on the player
+	$CollisionShape2D.set_deferred("disabled", true)
+
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
